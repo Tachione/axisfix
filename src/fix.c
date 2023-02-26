@@ -167,14 +167,14 @@ void fix_loop(struct ddrpad* pads, int padc) {
 
 		// check the devices available for reading.
 		for (i = 0; i < padc; i++) {
-			if (fds[i].revents & POLLIN == 0)
-				break;
+			if (fds[i].revents == 0)
+				continue;
 
 			process_pad_state(&(pads[i]), kbd);
 		}
 
 		// check stdin
-		if (fds[i].revents & POLLIN) {
+		if (fds[i].revents && POLLIN) {
 			printf("Terminating fix mode.\n");
 			break;
 		}
@@ -194,7 +194,7 @@ void process_pad_state(struct ddrpad* pad, keyboard* kbd) {
 		return;
 	}
 
-	if (ev.type & JS_EVENT_AXIS == 0)
+	if (ev.type && JS_EVENT_AXIS == 0)
 		return;
 
 	axis = ev.number;
