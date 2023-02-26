@@ -228,7 +228,7 @@ int are_there_joysticks(void) {
 }
 
 int export_pad(FILE* file, struct ddrpad* pad, int padnumber) {
-	fprintf(file, "[pad %d]\n");
+	fprintf(file, "[pad %d]\n", padnumber);
 	fprintf(file, "device = %s\n\n", pad->device);
 
 	fprintf(file, "vert_axis = %d\n", pad->vert_axis);
